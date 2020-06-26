@@ -1,7 +1,7 @@
 let grid = [];
 let columns;
 let rows;
-let resolution = 50;
+let resolution = 20;
 let deadColor = 0;
 let aliveColor = 'rgb(0,255,0)';
 let paused = true;
@@ -11,7 +11,8 @@ let fps = 10;
 
 //function for p5.js that is called on initial render
 function setup(){
-    canvas = createCanvas(750, 750);
+    canvas = createCanvas(600, 600);
+    canvas.parent('canvas') //connect it to html div with id='canvas' for positioning
     columns = floor(width / resolution);
     rows = floor(height / resolution);
 
@@ -31,7 +32,6 @@ function setup(){
 //function for p5.js that is called continously to update the canvas, unless stopped by noLoop()
 function draw(){
     document.getElementById("gen").innerHTML = `Generation: ${generation}`;
-    background(255);
 
     //handle selections for fps
     fpsChange();
@@ -47,7 +47,8 @@ function draw(){
                 } 
             }
         }
-        redraw()
+        generation = 0; //reset gen
+        redraw();
     }
 
     //handle clear the grid config
@@ -85,8 +86,6 @@ function draw(){
 
             //create cell at nextgrid[i][j]
             nextGrid[i][j] = new Cell(i, j, 0, deadColor)
-
-            //console.log("nextGrid: ", nextGrid)
 
             let cell = grid[i][j].value;
             let neighbors = countNeighbors(grid, i, j);
