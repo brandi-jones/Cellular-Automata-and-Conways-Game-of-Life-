@@ -1,24 +1,26 @@
 let grid = [];
 let columns;
 let rows;
-let resolution = 20;
-let deadColor = 170;
-let aliveColor = 255;
+let resolution = 50;
+let deadColor = 0;
+let aliveColor = 'rgb(0,255,0)';
 let paused = true;
 let generation = 0;
+let fps = 10;
 
 
-
+//function for p5.js that is called on initial render
 function setup(){
+    canvas = createCanvas(750, 750);
+    columns = floor(width / resolution);
+    rows = floor(height / resolution);
 
-    canvas = createCanvas(500, 500);
-    columns = width / resolution;
-    rows = height / resolution;
+    //make draw() only iterate once, until told to start
     noLoop();
 
-    for(let j = 0; j < columns; j++){
+    for(let i = 0; i < columns; i++){
         let inArr = [];
-        for(let i = 0; i < rows; i++){
+        for(let j = 0; j < rows; j++){
             let cell = new Cell(i, j, 0, deadColor);
             inArr.push(cell);
         }
@@ -26,10 +28,14 @@ function setup(){
     }
 }
 
+//function for p5.js that is called continously to update the canvas, unless stopped by noLoop()
 function draw(){
     document.getElementById("gen").innerHTML = `Generation: ${generation}`;
     background(255);
-    frameRate(10);
+
+    //handle selections for fps
+    fpsChange();
+    frameRate(fps);
 
     //handle random cell config
     document.getElementById("random").onclick = function() {
@@ -55,6 +61,8 @@ function draw(){
         redraw()
     }
 
+
+    //show current grid
     for(let i = 0; i < columns; i++){
         for(let j = 0; j < rows; j++){
             grid[i][j].show()
@@ -118,20 +126,14 @@ function draw(){
             }
             else {
                 if (cell == 0 && neighbors == 3) {
-                    // nextGrid[i][j].value = 1;
-                    // nextGrid[i][j].color = aliveColor;
                     nextGrid[i][j].changeValues(1, aliveColor)
                     gridChanged = true;
                 }
                 else if (cell == 1 && (neighbors < 2 || neighbors > 3)) {
-                    // nextGrid[i][j].value = 0;
-                    // nextGrid[i][j].color = deadColor;
                     nextGrid[i][j].changeValues(0, deadColor)
                     gridChanged = true;
                 }
                 else {
-                    // nextGrid[i][j].value = cell;
-                    // nextGrid[i][j].color = grid[i][j].color;
                     nextGrid[i][j].changeValues(cell, grid[i][j].color)
                 }
             }
@@ -140,11 +142,16 @@ function draw(){
         }
     }
 
+    //assign new grid
+    grid = nextGrid;
     
+    //handle start button
     document.getElementById("start").onclick = function() {
         loop();
         paused = false;
     }
+
+    //handle stop button
     document.getElementById("stop").onclick = function() {
         noLoop();
         paused = true;
@@ -155,15 +162,11 @@ function draw(){
         generation++;
     }
 
-
-    console.log("nextGrid: ", nextGrid)
-    
-
-    grid = nextGrid;
-
-   
 }
+
+//function for p5.js called anytime mouse is pressed
 function mousePressed(){
+    //only want users to be able to click cells if simulation is paused
     if (paused) {
         for (i = 0; i < columns; i++) {
             for (j = 0; j < rows; j++) {
@@ -174,7 +177,7 @@ function mousePressed(){
 }
 
 
-
+//count neighbors alive a cell has
 function countNeighbors(grid, x, y) {
     let count = 0;
 
@@ -192,6 +195,19 @@ function countNeighbors(grid, x, y) {
     count -= grid[x][y].value;
 
     return count;
+}
+
+//handle FPS selection
+function fpsChange(){
+    document.getElementById("fps5").onclick = function() {
+        fps = 5;
+    }
+    document.getElementById("fps10").onclick = function() {
+        fps = 10;
+    }
+    document.getElementById("fps20").onclick = function() {
+        fps = 20;
+    }
 }
 
 class Cell {
@@ -213,7 +229,7 @@ class Cell {
             this.color = aliveColor;
             this.value = 1;
 
-            //the following code works with allowing cells to be turned both alive and dead, but it is too slow
+            //the following code works with allowing cells to be turned both alive and dead, but it is quite slow
             // if (this.value === 0) {
             //     this.value = 1;
             //     this.color = aliveColor;
@@ -236,6 +252,5 @@ class Cell {
     changeValues(value, color) {
         this.value = value;
         this.color = color;
-        console.log('hit change values')
     }
 }
