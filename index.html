@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&family=Krona+One&display=swap" rel="stylesheet">
+
 
     <title>Conway's Game of Life</title>
 
@@ -16,49 +18,56 @@
 
     <div class="mainContent">
         <div class="canvasFunctionality">
-            <div id="gen"></div>
             <div id="canvas"></div>
 
-            <div class="mainButtonGroup">
+            <div class="mainButtonGroup buttonGroup">
+                <div class="buttonsInfo">Controls </div>
                 <button class="mainButton" id="start">Start</button>
                 <button class="mainButton" id="stop">Stop</button>
                 <button class="mainButton" id="clear">Clear</button>
             </div>
 
-            <div class="fpsButtonGroup">
-                <button class="fps" id="fps5">FPS 5</button>
-                <button class="fps" id="fps10">FPS 10</button>
-                <button class="fps" id="fps20">FPS 20</button>
+            <div class="fpsButtonGroup buttonGroup">
+                <div class="buttonsInfo">Speed</div>
+                <button class="fps" id="fps5">Slow</button>
+                <button class="fps" id="fps10">Normal</button>
+                <button class="fps" id="fps20">Fast</button>
             </div>
 
-            <div class="configButtonGroup">
+            <div class="configButtonGroup buttonGroup">
+                <div class="buttonsInfo">Configuration</div>
                 <button class="config" id="random">Random</button>
             </div>
+
+            <div id="gen"></div>
         </div>
-        <div class="infoText">
-            <div>
-                <br>
+
+        <div class="infoTextGroup">
+            <div id='aboutInfo' class="infoText">
+                <div>About</div>
                 Conway's Game of Life is a cellular automaton devised by the British mathematician John Horton Conway in 1970. It is the best-known example of a cellular automaton.
                 The "game" is actually a zero-player game, meaning that its evolution is determined by its initial state, requiring no futher input afterwards. 
                 One interacts with the Game of Life by creating an initial configuration and observing how it evolves.
             </div>
-            <div>
-                <br>
+
+            <div id='patternsInfo' class="infoText">
+                <div>Patterns</div>
                 Many different types of patterns occur in the Game of Life, which are classified according to their behaviour.<br>
                 Common pattern types include: <br>
-                - still lifes, which do not change from one generation to the next<br>
-                - oscillators, which return to their initial state after a finite number of generations<br>
-                - spaceships, which translate themselves across the grid <br>
+                • Still lifes, which do not change from one generation to the next<br>
+                • Oscillators, which return to their initial state after a finite number of generations<br>
+                • Spaceships, which translate themselves across the grid <br>
             </div>
-            <div>
-                <br>
-                Rules: <br>
+            <div id='rulesInfo' class="infoText">
+                <div>Rules:</div>
                 1. Any live cell with fewer than two live neighbours dies (referred to as underpopulation).<br>
                 2. Any live cell with more than three live neighbours dies (referred to as overpopulation or overcrowding).<br>
                 3. Any live cell with two or three live neighbours lives, unchanged, to the next generation.<br>
                 4. Any dead cell with exactly three live neighbours will come to life.<br>
             </div>
         </div>
+
+
     </div>
 </body>
 </html>

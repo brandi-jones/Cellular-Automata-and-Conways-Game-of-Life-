@@ -1,5 +1,5 @@
 * {
-    background-color: lightgrey;
+    /* border: 2px solid red; */
 }
 
 .fps {
@@ -8,7 +8,7 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    border: 3px solid black;
+    border: 3px solid white;
     margin: .5rem;
 }
 
@@ -18,7 +18,7 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    border: 3px solid black;
+    border: 3px solid white;
     margin: .5rem;
 }
 
@@ -28,7 +28,7 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    border: 3px solid black;
+    border: 3px solid white;
     margin: .5rem;
 }
 
@@ -37,37 +37,69 @@
 }
 
 #gen {
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin: auto;
-    width: 25%;
     text-align: center;
-    padding:1rem;
+    padding: 1rem;
+    border: 5px solid black;
+    opacity: .9;
+    color: white
 }
 
 h1 {
     text-align: center;
+    padding: 2rem;
+    font-family: 'Holtwood One SC', serif;
+    font-size: 2.5rem;
     background-color: white;
-    padding: 2rem
+    border: 5px solid black;
+    opacity: .9;
 }
 
-.infoText{
+.infoTextGroup{
     display: flex;
     flex-direction: column;
     font-weight: bold;
-    font-size: 1.5rem;
-    padding-top: 5rem;
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+}
+
+.infoText {
+    background-color: white;
+    border: 5px solid black;
+    text-align: center;
+    opacity: .9;
 }
 
 .mainContent {
     display: flex;
-
+    flex-direction: column-reverse;
+}
+.mainContent div {
+    
 }
 
 .canvasFunctionality {
-    padding-right: 5rem;
+    background: rgba(0,0,0,0.8);
+    text-align: center;
 }
 
 html {
     margin: 0 5rem 0 5rem;
+    font-family: 'Krona One', sans-serif;
+    margin: 0 30rem 0 30rem;
+}
+
+.canvasFunctionality div button {
+    font-family: 'Krona One', sans-serif;
+}
+
+.buttonGroup {
+    padding: 1rem;
+}
+
+.buttonsInfo {
+    color: white;
+    font-size: 1.3rem;
 }

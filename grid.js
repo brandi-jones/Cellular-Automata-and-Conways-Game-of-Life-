@@ -11,8 +11,14 @@ let fps = 10;
 
 //function for p5.js that is called on initial render
 function setup(){
-    canvas = createCanvas(600, 600);
+    canvas = createCanvas(windowWidth, windowHeight); //make the size of the entire page
     canvas.parent('canvas') //connect it to html div with id='canvas' for positioning
+
+    //move position of canvas and move the layer behind other elements
+    canvas.position(0,0);
+    canvas.style('z-index', '-1');
+    canvas.style('position', 'fixed')
+
     columns = floor(width / resolution);
     rows = floor(height / resolution);
 
@@ -27,6 +33,11 @@ function setup(){
         }
         grid.push(inArr)  
     }
+}
+
+//when window is resized
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
 }
 
 //function for p5.js that is called continously to update the canvas, unless stopped by noLoop()
