@@ -66,6 +66,8 @@ h1 {
 }
 
 .infoText {
+    padding: 1rem;
+    margin: .5rem;
     background-color: white;
     border: 5px solid black;
     text-align: center;
@@ -102,4 +104,34 @@ html {
 .buttonsInfo {
     color: white;
     font-size: 1.3rem;
+    text-decoration: underline;
+}
+
+.infoTextTitle{
+    font-weight: 900;
+    font-size: 1.5rem;
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 1550px) {
+
+    html {
+        margin: 10rem;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    html {
+        margin: 8rem;
+        font-size: .9rem;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    html {
+        margin: 5rem;
+        font-size: .7rem;
+    }
 }
