@@ -2,6 +2,12 @@
     /* border: 2px solid red; */
 }
 
+html, body {
+    font-family: 'Krona One', sans-serif;
+    width: 100%;
+    height: 100%;
+}
+
 .fps {
     background-color: rgb(0,255,0);
     padding: 1.5rem;
@@ -77,6 +83,7 @@ h1 {
 .mainContent {
     display: flex;
     flex-direction: column-reverse;
+    margin: 0 30rem 0 30rem;
 }
 .mainContent div {
     
@@ -85,12 +92,6 @@ h1 {
 .canvasFunctionality {
     background: rgba(0,0,0,0.8);
     text-align: center;
-}
-
-html {
-    margin: 0 5rem 0 5rem;
-    font-family: 'Krona One', sans-serif;
-    margin: 0 30rem 0 30rem;
 }
 
 .canvasFunctionality div button {
