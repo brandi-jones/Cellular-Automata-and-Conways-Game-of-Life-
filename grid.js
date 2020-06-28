@@ -43,7 +43,8 @@ function windowResized() {
     columns = floor(windowWidth / resolution);
     rows = floor(windowHeight / resolution);
 
-    console.log("test", this.windowWidth, columns, rows)
+    redraw();
+   // console.log("test", this.windowWidth, columns, rows)
 }
 
 //function for p5.js that is called continously to update the canvas, unless stopped by noLoop()
@@ -77,7 +78,7 @@ function draw(){
                 } 
             }
         }
-        
+
         generation = 0; //reset gen
         noLoop();
         redraw();
