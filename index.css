@@ -89,9 +89,6 @@ h1 {
     /* margin: 0 30rem 0 30rem; */
     margin: 0 25% 0 25%;
 }
-.mainContent div {
-    
-}
 
 .canvasFunctionality {
     background: rgba(0,0,0,0.8);
@@ -118,11 +115,10 @@ h1 {
     text-decoration: underline;
 }
 
-@media only screen and (max-width: 1550px) {
-    .mainContent {
-
-    }
+.list {
+    text-align: left;
 }
+
 
 @media only screen and (max-width: 1000px) {
 
