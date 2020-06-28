@@ -93,9 +93,8 @@ function draw(){
     }
 
     //show current grid
-    for(let i = 0; i < grid.length; i++){
-        for(let j = 0; j < grid[i].length; j++){
-            //console.log(grid[i][j])
+    for(let i = 0; i < columns; i++){
+        for(let j = 0; j < rows; j++){
             grid[i][j].show()
         }
     }
@@ -111,8 +110,8 @@ function draw(){
     //create variable to track if grid changes at all this iteration
     let gridChanged = false;
 
-    for (let i = 0; i < floor(windowWidth/resolution); i++) {
-        for (let j = 0; j < floor(windowHeight/resolution); j++) {
+    for (let i = 0; i < nextGrid.length; i++) {
+        for (let j = 0; j < nextGrid[0].length; j++) {
 
             //create cell at nextgrid[i][j]
             nextGrid[i][j] = new Cell(i, j, 0, deadColor)
