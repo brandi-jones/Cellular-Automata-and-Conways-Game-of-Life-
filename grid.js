@@ -4,7 +4,7 @@ let rows;
 let resolution = 20;
 let deadColor = 0;
 let aliveColor = 'rgb(0,255,0)';
-let paused = true;
+let paused = false;
 let generation = 0;
 let fps = 10;
 
@@ -24,7 +24,7 @@ function setup(){
     rows = floor(windowHeight / resolution);
 
     //make draw() only iterate once, until told to start
-    noLoop();
+    //noLoop();
 
     for(let i = 0; i < columns; i++){
         let inArr = [];
@@ -54,22 +54,8 @@ function draw(){
     fpsChange();
     frameRate(fps);
 
-    //handle random cell config
-    document.getElementById("random").onclick = function() {
-        for(let i = 0; i < columns; i++){
-            for(let j = 0; j < rows; j++){
-                let num = floor(random(2))
-                if (num == 1) {
-                    grid[i][j].changeValues(1, aliveColor)
-                } 
-            }
-        }
-        generation = 0; //reset gen
-        redraw();
-    }
-
     //handle clear the grid config
-    document.getElementById("clear").onclick = function() {
+    let clear = document.getElementById("clear").onclick = function() {
         for(let i = 0; i < columns; i++){
             for(let j = 0; j < rows; j++){
                 grid[i][j].changeValues(0, deadColor)
@@ -79,6 +65,31 @@ function draw(){
         redraw();
     }
 
+    //handle random cell config
+    document.getElementById("random").onclick = function() {
+        clear() //clear grid first
+
+        for(let i = 0; i < columns; i++){
+            for(let j = 0; j < rows; j++){
+                let num = floor(random(2))
+                if (num == 1) {
+                    grid[i][j].changeValues(1, aliveColor)
+                } 
+            }
+        }
+        
+        generation = 0; //reset gen
+        noLoop();
+        redraw();
+    }
+
+    //handle custom cell config 
+    document.getElementById("custom").onclick = function() {
+        clear(); //clear grid first
+        noLoop();
+        paused = true;
+        generation = 0;
+    }
 
     //show current grid
     for(let i = 0; i < grid.length; i++){
