@@ -20,8 +20,8 @@ function setup(){
     canvas.style('position', 'fixed')  
     canvas.style('display', 'block')
 
-    columns = floor(windowWidth / resolution);
-    rows = floor(windowHeight / resolution);
+    columns = ceil(windowWidth / resolution);
+    rows = ceil(windowHeight / resolution);
 
     //make draw() only iterate once, until told to start
     //noLoop();
@@ -40,8 +40,8 @@ function setup(){
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
 
-    columns = floor(windowWidth / resolution);
-    rows = floor(windowHeight / resolution);
+    columns = ceil(windowWidth / resolution);
+    rows = ceil(windowHeight / resolution);
 
     redraw();
    // console.log("test", this.windowWidth, columns, rows)
@@ -72,7 +72,7 @@ function draw(){
 
         for(let i = 0; i < columns; i++){
             for(let j = 0; j < rows; j++){
-                let num = floor(random(2))
+                let num = ceil(random(2))
                 if (num == 1) {
                     grid[i][j].changeValues(1, aliveColor)
                 } 
@@ -101,10 +101,10 @@ function draw(){
 
     //------------create next grid------------
     //create a new 2Darray for the "next" array after a cycle has completed
-    let nextGrid = new Array(floor(windowWidth/resolution));
+    let nextGrid = new Array(ceil(windowWidth/resolution));
     //loop over columns to create new arrays at each column
     for (let i = 0; i < nextGrid.length; i++) { 
-        nextGrid[i] = new Array(floor(windowHeight/resolution));
+        nextGrid[i] = new Array(ceil(windowHeight/resolution));
     }
 
     //create variable to track if grid changes at all this iteration
