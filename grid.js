@@ -23,9 +23,6 @@ function setup(){
     columns = ceil(windowWidth / resolution);
     rows = ceil(windowHeight / resolution);
 
-    //make draw() only iterate once, until told to start
-    //noLoop();
-
     for(let i = 0; i < columns; i++){
         let inArr = [];
         for(let j = 0; j < rows; j++){
@@ -44,7 +41,6 @@ function windowResized() {
     rows = ceil(windowHeight / resolution);
 
     redraw();
-   // console.log("test", this.windowWidth, columns, rows)
 }
 
 //function for p5.js that is called continously to update the canvas, unless stopped by noLoop()
@@ -124,8 +120,6 @@ function draw(){
                 let cell = grid[i][j].value;
                 let neighbors = countNeighbors(grid, i, j);
 
-            //console.log("rows: ", rows, "columns: ", columns)
-
                 // //if cell is alive and neighbors are less than 2 (dies of underpopulation)
                 // if (cell == 1 && neighbors < 2) {
                 //     nextGrid[i][j].value = 0;
@@ -151,6 +145,7 @@ function draw(){
                 //     nextGrid[i][j].value = 0;
                 //     nextGrid[i][j].color = 'red';
                 // }
+
                 if (paused) {
                     nextGrid[i][j] = grid[i][j]
                 }
@@ -259,7 +254,7 @@ class Cell {
             this.color = aliveColor;
             this.value = 1;
 
-            //the following code works with allowing cells to be turned both alive and dead, but it is quite slow
+            // the following code works with allowing cells to be turned both alive and dead, but it is quite slow
             // if (this.value === 0) {
             //     this.value = 1;
             //     this.color = aliveColor;
