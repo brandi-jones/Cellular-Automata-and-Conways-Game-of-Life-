@@ -20,8 +20,8 @@ function setup(){
     canvas.style('position', 'fixed')  
     canvas.style('display', 'block')
 
-    columns = floor(width / resolution);
-    rows = floor(height / resolution);
+    columns = floor(windowWidth / resolution);
+    rows = floor(windowHeight / resolution);
 
     //make draw() only iterate once, until told to start
     noLoop();
@@ -39,6 +39,11 @@ function setup(){
 //when window is resized
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+
+    columns = floor(windowWidth / resolution);
+    rows = floor(windowHeight / resolution);
+
+    console.log("test", this.windowWidth, columns, rows)
 }
 
 //function for p5.js that is called continously to update the canvas, unless stopped by noLoop()
@@ -71,85 +76,88 @@ function draw(){
             }
         }
         generation = 0;
-        redraw()
+        redraw();
     }
 
 
     //show current grid
-    for(let i = 0; i < columns; i++){
-        for(let j = 0; j < rows; j++){
+    for(let i = 0; i < grid.length; i++){
+        for(let j = 0; j < grid[i].length; j++){
+            //console.log(grid[i][j])
             grid[i][j].show()
         }
     }
 
     //------------create next grid------------
     //create a new 2Darray for the "next" array after a cycle has completed
-    let nextGrid = new Array(columns);
+    let nextGrid = new Array(floor(windowWidth/resolution));
     //loop over columns to create new arrays at each column
-    for (let i = 0; i < columns; i++) { 
-        nextGrid[i] = new Array(rows);
+    for (let i = 0; i < nextGrid.length; i++) { 
+        nextGrid[i] = new Array(floor(windowHeight/resolution));
     }
 
     //create variable to track if grid changes at all this iteration
     let gridChanged = false;
 
-    for (let i = 0; i < columns; i++) {
-        for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < floor(windowWidth/resolution); i++) {
+        for (let j = 0; j < floor(windowHeight/resolution); j++) {
 
             //create cell at nextgrid[i][j]
             nextGrid[i][j] = new Cell(i, j, 0, deadColor)
 
-            let cell = grid[i][j].value;
-            let neighbors = countNeighbors(grid, i, j);
+            //if next grid is going to be bigger than current grid (in case of window resize), all new cells will be dead in color.
+            // otherwise, continue with rules
+            if (i < grid.length && j < grid[0].length) {
+        
+                //console.log(i, j)
+                let cell = grid[i][j].value;
+                let neighbors = countNeighbors(grid, i, j);
 
-            //console.log("grid[i][j].value", grid[i][j].value)
-           //console.log("neighbors: ", neighbors)
+            //console.log("rows: ", rows, "columns: ", columns)
 
-           //console.log("rows: ", rows, "columns: ", columns)
-
-            // //if cell is alive and neighbors are less than 2 (dies of underpopulation)
-            // if (cell == 1 && neighbors < 2) {
-            //     nextGrid[i][j].value = 0;
-            //     nextGrid[i][j].color = deadColor;
-            // }
-            // //if cell is alive and has exactly 2 or 3 neighbors (lives on to the next generation)
-            // else if (cell == 1  && neighbors == 2 || neighbors == 3){
-            //     nextGrid[i][j].value = cell;
-            //     nextGrid[i][j].color = aliveColor;
-            // }
-            // //if cell is alive and has more than 3 neighbors (dies of overpopulation)
-            // else if (cell == 1 && neighbors > 3) {
-            //     nextGrid[i][j].value = 0;
-            //     nextGrid[i][j].color = deadColor;
-            // }
-            // //if cell is dead and has exactly 3 neighbors (born from reproduction)
-            // else if (cell == 0 && neighbors == 3) {
-            //     nextGrid[i][j].value = 1;
-            //     nextGrid[i][j].color = aliveColor;
-            // }
-            // //any other cells die in the next generation
-            // else {
-            //     nextGrid[i][j].value = 0;
-            //     nextGrid[i][j].color = 'red';
-            // }
-            if (paused) {
-                nextGrid[i][j] = grid[i][j]
-            }
-            else {
-                if (cell == 0 && neighbors == 3) {
-                    nextGrid[i][j].changeValues(1, aliveColor)
-                    gridChanged = true;
-                }
-                else if (cell == 1 && (neighbors < 2 || neighbors > 3)) {
-                    nextGrid[i][j].changeValues(0, deadColor)
-                    gridChanged = true;
+                // //if cell is alive and neighbors are less than 2 (dies of underpopulation)
+                // if (cell == 1 && neighbors < 2) {
+                //     nextGrid[i][j].value = 0;
+                //     nextGrid[i][j].color = deadColor;
+                // }
+                // //if cell is alive and has exactly 2 or 3 neighbors (lives on to the next generation)
+                // else if (cell == 1  && neighbors == 2 || neighbors == 3){
+                //     nextGrid[i][j].value = cell;
+                //     nextGrid[i][j].color = aliveColor;
+                // }
+                // //if cell is alive and has more than 3 neighbors (dies of overpopulation)
+                // else if (cell == 1 && neighbors > 3) {
+                //     nextGrid[i][j].value = 0;
+                //     nextGrid[i][j].color = deadColor;
+                // }
+                // //if cell is dead and has exactly 3 neighbors (born from reproduction)
+                // else if (cell == 0 && neighbors == 3) {
+                //     nextGrid[i][j].value = 1;
+                //     nextGrid[i][j].color = aliveColor;
+                // }
+                // //any other cells die in the next generation
+                // else {
+                //     nextGrid[i][j].value = 0;
+                //     nextGrid[i][j].color = 'red';
+                // }
+                if (paused) {
+                    nextGrid[i][j] = grid[i][j]
                 }
                 else {
-                    nextGrid[i][j].changeValues(cell, grid[i][j].color)
+                    if (cell == 0 && neighbors == 3) {
+                        nextGrid[i][j].changeValues(1, aliveColor)
+                        gridChanged = true;
+                    }
+                    else if (cell == 1 && (neighbors < 2 || neighbors > 3)) {
+                        nextGrid[i][j].changeValues(0, deadColor)
+                        gridChanged = true;
+                    }
+                    else {
+                        nextGrid[i][j].changeValues(cell, grid[i][j].color)
+                    }
                 }
-            }
          
-
+            }   
         }
     }
 
@@ -179,8 +187,8 @@ function draw(){
 function mousePressed(){
     //only want users to be able to click cells if simulation is paused
     if (paused) {
-        for (i = 0; i < columns; i++) {
-            for (j = 0; j < rows; j++) {
+        for (i = 0; i < grid.length; i++) {
+            for (j = 0; j < grid[0].length; j++) {
                 grid[i][j].clicked()
             }
         }
@@ -196,8 +204,8 @@ function countNeighbors(grid, x, y) {
     for (let i = -1; i < 2; i++) {
         for (let j = -1; j < 2; j++) {
             //create new column/row variables to handle wrap around 
-            let column = (x + i + columns) % columns;
-            let row = (y + j + rows) % rows;
+            let column = (x + i + grid.length) % grid.length;
+            let row = (y + j + grid[0].length) % grid[0].length;
 
             count += grid[column][row].value;
         }
