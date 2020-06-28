@@ -17,7 +17,8 @@ function setup(){
     //move position of canvas and move the layer behind other elements
     canvas.position(0,0);
     canvas.style('z-index', '-1');
-    canvas.style('position', 'fixed')
+    canvas.style('position', 'fixed')  
+    canvas.style('display', 'block')
 
     columns = floor(width / resolution);
     rows = floor(height / resolution);
